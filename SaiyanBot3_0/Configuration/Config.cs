@@ -52,6 +52,7 @@ namespace SaiyanBot3_0.Configuration
         {
             if (configLines == null || configLines.Length == 0) throw new ArgumentException("");
             if (index < 0 || index > configLines.Length - 1) throw new ArgumentException("");
+            if (configLines[index] != "[Discord]") throw new ArgumentException("");
 
             List<string> discordConf = new List<string>();
 
@@ -71,6 +72,7 @@ namespace SaiyanBot3_0.Configuration
         {
             if (configLines == null || configLines.Length == 0) throw new ArgumentException("");
             if (index < 0 || index > configLines.Length - 1) throw new ArgumentException("");
+            if (configLines[index] != "[Twitch]") throw new ArgumentException("");
 
             List<string> twitchConf = new List<string>();
 
