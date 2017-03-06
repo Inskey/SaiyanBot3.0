@@ -35,7 +35,6 @@ namespace SaiyanBotTests
         [TestMethod]
         public void ParseConfigTest()
         {
-
             // Parse dummy config
             Config newConf = Config.ParseConfig(dummyConfig);
 
@@ -79,9 +78,9 @@ namespace SaiyanBotTests
             {
                 DiscordConfig discord = Config.GetDiscordConfig(configLines, 6);
             }
-            catch(Exception e)
+            catch (ArgumentException)
             {
-                Assert.IsInstanceOfType(e, typeof(ArgumentException));
+                return;
             }
 
             Assert.Fail();
@@ -93,9 +92,9 @@ namespace SaiyanBotTests
             {
                 DiscordConfig discord = Config.GetDiscordConfig(configLines, -1);
             }
-            catch (Exception e)
+            catch (ArgumentException)
             {
-                Assert.IsInstanceOfType(e, typeof(ArgumentException));
+                return;
             }
 
             Assert.Fail();
@@ -107,9 +106,9 @@ namespace SaiyanBotTests
             {
                 DiscordConfig discord = Config.GetDiscordConfig(new string[0], 7);
             }
-            catch (Exception e)
+            catch (ArgumentException)
             {
-                Assert.IsInstanceOfType(e, typeof(ArgumentException));
+                return;
             }
 
             Assert.Fail();
@@ -121,9 +120,9 @@ namespace SaiyanBotTests
             {
                 DiscordConfig discord = Config.GetDiscordConfig(null, 7);
             }
-            catch (Exception e)
+            catch (ArgumentException)
             {
-                Assert.IsInstanceOfType(e, typeof(ArgumentException));
+                return;
             }
 
             Assert.Fail();
@@ -162,9 +161,9 @@ namespace SaiyanBotTests
             {
                 TwitchConfig twitch = Config.GetTwitchConfig(configLines, 7);
             }
-            catch(Exception e)
+            catch (ArgumentException)
             {
-                Assert.IsInstanceOfType(e, typeof(ArgumentException));
+                return;
             }
 
             Assert.Fail();
@@ -176,9 +175,9 @@ namespace SaiyanBotTests
             {
                 TwitchConfig twitch = Config.GetTwitchConfig(configLines, -1);
             }
-            catch (Exception e)
+            catch (ArgumentException)
             {
-                Assert.IsInstanceOfType(e, typeof(ArgumentException));
+                return;
             }
 
             Assert.Fail();
@@ -190,9 +189,9 @@ namespace SaiyanBotTests
             {
                 TwitchConfig twitch = Config.GetTwitchConfig(new string[0], 0);
             }
-            catch (Exception e)
+            catch (ArgumentException)
             {
-                Assert.IsInstanceOfType(e, typeof(ArgumentException));
+                return;
             }
 
             Assert.Fail();
@@ -204,9 +203,9 @@ namespace SaiyanBotTests
             {
                 TwitchConfig twitch = Config.GetTwitchConfig(null, 0);
             }
-            catch (Exception e)
+            catch (ArgumentException)
             {
-                Assert.IsInstanceOfType(e, typeof(ArgumentException));
+                return;
             }
 
             Assert.Fail();
