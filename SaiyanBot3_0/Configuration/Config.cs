@@ -12,17 +12,12 @@ namespace SaiyanBot3_0.Configuration
         public TwitchConfig Twitch;
         public DiscordConfig Discord;
 
+        public bool IsTwitch { get { return Twitch != null; } }
+        public bool IsDiscord { get { return Discord != null; } }
+
         public Config(TwitchConfig twitch, DiscordConfig discord)
         {
             Twitch = twitch;
-            Discord = discord;
-        }
-        public Config(TwitchConfig twitch)
-        {
-            Twitch = twitch;
-        }
-        public Config(DiscordConfig discord)
-        {
             Discord = discord;
         }
 
@@ -39,14 +34,20 @@ namespace SaiyanBot3_0.Configuration
 
             if (discordHeaderIndex < 0 && twitchHeaderIndex < 0) throw new ArgumentException("Config file does not contain any valid config headers");
 
+            DiscordConfig discord = null;
+            TwitchConfig twitch = null;
+
             if (discordHeaderIndex >= 0)
             {
-
+                discord = GetDiscordConfig(configLines, discordHeaderIndex);
             }
 
             if (twitchHeaderIndex >= 0)
             {
+                twitch = GetTwitchConfig(configLines, twitchHeaderIndex);
             }
+
+            return new Config(twitch, discord);
         }
 
         public static DiscordConfig GetDiscordConfig(string[] configLines, int index)
