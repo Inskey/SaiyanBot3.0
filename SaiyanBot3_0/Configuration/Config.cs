@@ -25,8 +25,6 @@ namespace SaiyanBot3_0.Configuration
         {
             string[] configLines = Regex.Split(configFile, "\r\n|\r|\n");
 
-            string[] twitchConfig, discordConfig;
-
             if (!configLines[0].StartsWith("[")) throw new ArgumentException("Config file did not start with a config header");
 
             int discordHeaderIndex = configLines.ToList().FindIndex(x => (x == "[Discord]"));
