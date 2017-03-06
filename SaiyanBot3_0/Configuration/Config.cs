@@ -41,31 +41,61 @@ namespace SaiyanBot3_0.Configuration
 
             if (discordHeaderIndex >= 0)
             {
-                List<string> discordConf = new List<string>();
 
-                discordConf.Add(configLines[discordHeaderIndex]);
-
-                for (int i = discordHeaderIndex + 1; i < configLines.Length && !configLines[i].StartsWith("["); i++)
-                {
-                    discordConf.Add(configLines[i]);
-                }
-
-                discordConfig = discordConf.ToArray();
             }
 
             if (twitchHeaderIndex >= 0)
             {
-                List<string> twitchConf = new List<string>();
-
-                twitchConf.Add(configLines[discordHeaderIndex]);
-
-                for (int i = twitchHeaderIndex + 1; i < configLines.Length && !configLines[i].StartsWith("["); i++)
-                {
-                    twitchConf.Add(configLines[i]);
-                }
-
-                twitchConfig = twitchConf.ToArray();
             }
+        }
+
+        public DiscordConfig GetDiscordConfig(string[] configLines, int index)
+        {
+            if (configLines == null || configLines.Length == 0) throw new ArgumentException("");
+            if (index < 0 || index > configLines.Length - 1) throw new ArgumentException("");
+
+            List<string> discordConf = new List<string>();
+
+            discordConf.Add(configLines[index]);
+
+            for (int i = index + 1; i < configLines.Length && !configLines[i].StartsWith("["); i++)
+            {
+                discordConf.Add(configLines[i]);
+            }
+
+            string token = discordConf.Where(x => x.ToLower().StartsWith("token=")).Single().Substring(6);
+
+            return new DiscordConfig(token);
+        }
+
+        public TwitchConfig GetTwitchConfig(string[] configLines, int index)
+        {
+            if (configLines == null || configLines.Length == 0) throw new ArgumentException("");
+            if (index < 0 || index > configLines.Length - 1) throw new ArgumentException("");
+
+            List<string> twitchConf = new List<string>();
+
+            twitchConf.Add(configLines[index]);
+
+            for (int i = index + 1; i < configLines.Length && !configLines[i].StartsWith("["); i++)
+            {
+                twitchConf.Add(configLines[i]);
+            }
+
+            string user = twitchConf.Where(x => x.ToLower().StartsWith("user=")).Single().Substring(5);
+            string pass = twitchConf.Where(x => x.ToLower().StartsWith("pass=")).Single().Substring(5);
+
+            List<string> channels = new List<string>();
+
+            int channelStartIndex = twitchConf.FindIndex(x => x.ToLower() == "channels=");
+
+            for(int i = channelStartIndex + 1; i < twitchConf.Count && (twitchConf[i].StartsWith("\t") || twitchConf[i].StartsWith("    ")); i++)
+            {
+                if (twitchConf[i].StartsWith("\t")) channels.Add(twitchConf[i].Substring(1));
+                else if (twitchConf[i].StartsWith("    ")) channels.Add(twitchConf[i].Substring(4));
+            }
+
+            return new TwitchConfig(user, pass, channels);
         }
     }
 }
