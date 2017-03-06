@@ -8,5 +8,11 @@ namespace SaiyanBot3_0.Configuration
 {
     public class DiscordConfig
     {
+        public string Token { get; private set; }
+
+        public DiscordConfig(string token)
+        {
+            Token = token;
+        }
     }
 }
