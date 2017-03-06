@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SaiyanBot3_0.Configuration
 {
-    class TwitchConfig
+    public class TwitchConfig
     {
     }
 }
