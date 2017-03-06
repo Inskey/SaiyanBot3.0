@@ -49,7 +49,7 @@ namespace SaiyanBot3_0.Configuration
             }
         }
 
-        public DiscordConfig GetDiscordConfig(string[] configLines, int index)
+        public static DiscordConfig GetDiscordConfig(string[] configLines, int index)
         {
             if (configLines == null || configLines.Length == 0) throw new ArgumentException("");
             if (index < 0 || index > configLines.Length - 1) throw new ArgumentException("");
@@ -68,7 +68,7 @@ namespace SaiyanBot3_0.Configuration
             return new DiscordConfig(token);
         }
 
-        public TwitchConfig GetTwitchConfig(string[] configLines, int index)
+        public static TwitchConfig GetTwitchConfig(string[] configLines, int index)
         {
             if (configLines == null || configLines.Length == 0) throw new ArgumentException("");
             if (index < 0 || index > configLines.Length - 1) throw new ArgumentException("");
