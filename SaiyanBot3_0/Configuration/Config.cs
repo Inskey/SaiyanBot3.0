@@ -72,7 +72,7 @@ namespace SaiyanBot3_0.Configuration
                 discordConf.Add(configLines[i]);
             }
 
-            string token = discordConf.Where(x => x.ToLower().StartsWith("token=")).Single().Substring(6);
+            string token = discordConf.Single(x => x.ToLower().StartsWith("token=")).Substring(6);
 
             return new DiscordConfig(token);
         }
@@ -92,8 +92,8 @@ namespace SaiyanBot3_0.Configuration
                 twitchConf.Add(configLines[i]);
             }
 
-            string user = twitchConf.Where(x => x.ToLower().StartsWith("user=")).Single().Substring(5);
-            string pass = twitchConf.Where(x => x.ToLower().StartsWith("pass=")).Single().Substring(5);
+            string user = twitchConf.Single(x => x.ToLower().StartsWith("user=")).Substring(5);
+            string pass = twitchConf.Single(x => x.ToLower().StartsWith("pass=")).Substring(5);
 
             List<string> channels = new List<string>();
 
