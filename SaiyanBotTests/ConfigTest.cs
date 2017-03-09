@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -33,6 +34,26 @@ namespace SaiyanBotTests
         }
 
         [TestMethod]
+        public void LoadConfigFileTest()
+        {
+            // Initialize dummy file data
+            string filePath = "/dummyConf.conf";
+            byte[] bytes = Encoding.UTF8.GetBytes(dummyConfig);
+
+            // Create and write to dummy file
+            var fs = File.OpenWrite(filePath);
+            fs.Write(bytes, 0, bytes.Length);
+
+            // Read dummy file
+            string newConf = Config.LoadConfigFile(filePath);
+
+            // Clean up dummy file
+            File.Delete(filePath);
+
+            Assert.IsTrue(newConf.Equals(filePath));
+        }
+
+        [TestMethod]
         public void ParseConfigTest()
         {
             // Parse dummy config
@@ -56,6 +77,7 @@ namespace SaiyanBotTests
             Assert.IsTrue(assertion);
         }
 
+        // Valid args
         [TestMethod]
         public void GetDiscordConfigTest_1()
         {
@@ -71,6 +93,7 @@ namespace SaiyanBotTests
 
             Assert.IsTrue(discord != null && discord.Token == "12345678abcdef");
         }
+        // Invalid index (not a config header)
         [TestMethod]
         public void GetDiscordConfigTest_2()
         {
@@ -85,6 +108,7 @@ namespace SaiyanBotTests
 
             Assert.Fail();
         }
+        // Invalid index (negative index)
         [TestMethod]
         public void GetDiscordConfigTest_3()
         {
@@ -99,6 +123,7 @@ namespace SaiyanBotTests
 
             Assert.Fail();
         }
+        // Invalid array (empty array)
         [TestMethod]
         public void GetDiscordConfigTest_4()
         {
@@ -113,6 +138,7 @@ namespace SaiyanBotTests
 
             Assert.Fail();
         }
+        //Invalid array (null)
         [TestMethod]
         public void GetDiscordConfigTest_5()
         {
@@ -128,6 +154,7 @@ namespace SaiyanBotTests
             Assert.Fail();
         }
 
+        // Valid args
         [TestMethod]
         public void GetTwitchConfigTest_1()
         {
@@ -154,6 +181,7 @@ namespace SaiyanBotTests
 
             Assert.IsTrue(assertion);
         }
+        // Invalid index (wrong header)
         [TestMethod]
         public void GetTwitchConfigTest_2()
         {
@@ -168,6 +196,7 @@ namespace SaiyanBotTests
 
             Assert.Fail();
         }
+        // Invalid index (negative index)
         [TestMethod]
         public void GetTwitchConfigTest_3()
         {
@@ -182,6 +211,7 @@ namespace SaiyanBotTests
 
             Assert.Fail();
         }
+        // Invalid array (empty array)
         [TestMethod]
         public void GetTwitchConfigTest_4()
         {
@@ -196,6 +226,7 @@ namespace SaiyanBotTests
 
             Assert.Fail();
         }
+        // Invalid array (null)
         [TestMethod]
         public void GetTwitchConfigTest_5()
         {
