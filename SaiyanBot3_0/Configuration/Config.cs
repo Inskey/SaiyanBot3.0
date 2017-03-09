@@ -59,9 +59,9 @@ namespace SaiyanBot3_0.Configuration
 
         public static DiscordConfig GetDiscordConfig(string[] configLines, int index)
         {
-            if (configLines == null || configLines.Length == 0) throw new ArgumentException("");
-            if (index < 0 || index > configLines.Length - 1) throw new ArgumentException("");
-            if (configLines[index] != "[Discord]") throw new ArgumentException("");
+            if (configLines == null || configLines.Length == 0) throw new ArgumentException("Invalid config file.");
+            if (index < 0 || index > configLines.Length - 1) throw new IndexOutOfRangeException("Header index was not within range of config lines array.");
+            if (configLines[index] != "[Discord]") throw new ArgumentException("Invalid header index, header index should point to the line \"[Discord]\"");
 
             List<string> discordConf = new List<string>();
 
@@ -79,9 +79,9 @@ namespace SaiyanBot3_0.Configuration
 
         public static TwitchConfig GetTwitchConfig(string[] configLines, int index)
         {
-            if (configLines == null || configLines.Length == 0) throw new ArgumentException("");
-            if (index < 0 || index > configLines.Length - 1) throw new ArgumentException("");
-            if (configLines[index] != "[Twitch]") throw new ArgumentException("");
+            if (configLines == null || configLines.Length == 0) throw new ArgumentException("Invalid config file.");
+            if (index < 0 || index > configLines.Length - 1) throw new IndexOutOfRangeException("Header index was not within range of config lines array.");
+            if (configLines[index] != "[Twitch]") throw new ArgumentException("Invalid header index, header index should point to the line \"[Twitch]\"");
 
             List<string> twitchConf = new List<string>();
 
