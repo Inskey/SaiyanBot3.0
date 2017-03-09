@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using SaiyanBot3_0.Configuration;
 
-namespace SaiyanBotTests
+namespace SaiyanBotTests.Configuration
 {
     [TestClass]
     public class ConfigTest
