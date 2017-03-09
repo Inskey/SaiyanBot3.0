@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,14 @@ namespace SaiyanBot3_0.Configuration
         {
             Twitch = twitch;
             Discord = discord;
+        }
+
+        public static string LoadConfigFile(string path)
+        {
+            // TODO: Generate default config file if specified path does not exist
+            if (!File.Exists(path)) throw new ArgumentException("");
+
+            return File.ReadAllText(path);
         }
 
         public static Config ParseConfig(string configFile)
