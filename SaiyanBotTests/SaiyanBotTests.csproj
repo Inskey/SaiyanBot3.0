@@ -52,6 +52,7 @@
     <Compile Include="Configuration\ConfigTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ConfigTest.cs" />
+    <Compile Include="Core\BotTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SaiyanBot3_0\SaiyanBot3_0.csproj">
