@@ -1,11 +1,11 @@
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using SaiyanBot3_0.Configuration;
+using NUnit.Framework;
 
 namespace SaiyanBotTests.Core
 {
-    [TestClass]
+    [TestFixture]
     public class BotTest
     {
         

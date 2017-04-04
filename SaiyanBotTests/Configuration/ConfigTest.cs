@@ -1,20 +1,21 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Reflection;
 
 using SaiyanBot3_0.Configuration;
-using System;
+using NUnit.Framework;
 
 namespace SaiyanBotTests
 {
-    [TestClass]
+    [TestFixture]
     public class ConfigTest
     {
         string dummyConfig;
         string[] configLines;
 
-        [TestInitialize]
+        [SetUp]
         public void InitializeTest()
         {
             // Create dummy config file contents
@@ -33,16 +34,17 @@ namespace SaiyanBotTests
             configLines = Regex.Split(dummyConfig, "\r\n|\r|\n");
         }
 
-        [TestMethod]
+        [Test]
         public void LoadConfigFileTest()
         {
             // Initialize dummy file data
-            string filePath = "/dummyConf.conf";
+            string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "/dummyConf.conf";
             byte[] bytes = Encoding.UTF8.GetBytes(dummyConfig);
 
             // Create and write to dummy file
             var fs = File.OpenWrite(filePath);
             fs.Write(bytes, 0, bytes.Length);
+            fs.Close();
 
             // Read dummy file
             string newConf = Config.LoadConfigFile(filePath);
@@ -50,10 +52,10 @@ namespace SaiyanBotTests
             // Clean up dummy file
             File.Delete(filePath);
 
-            Assert.IsTrue(newConf.Equals(filePath));
+            Assert.IsTrue(newConf.Equals(dummyConfig));
         }
 
-        [TestMethod]
+        [Test]
         public void ParseConfigTest()
         {
             // Parse dummy config
@@ -78,7 +80,7 @@ namespace SaiyanBotTests
         }
 
         // Valid args
-        [TestMethod]
+        [Test]
         public void GetDiscordConfigTest_1()
         {
             DiscordConfig discord = null;
@@ -94,7 +96,7 @@ namespace SaiyanBotTests
             Assert.IsTrue(discord != null && discord.Token == "12345678abcdef");
         }
         // Invalid index (not a config header)
-        [TestMethod]
+        [Test]
         public void GetDiscordConfigTest_2()
         {
             try
@@ -109,14 +111,14 @@ namespace SaiyanBotTests
             Assert.Fail();
         }
         // Invalid index (negative index)
-        [TestMethod]
+        [Test]
         public void GetDiscordConfigTest_3()
         {
             try
             {
                 DiscordConfig discord = Config.GetDiscordConfig(configLines, -1);
             }
-            catch (ArgumentException)
+            catch (IndexOutOfRangeException)
             {
                 return;
             }
@@ -124,7 +126,7 @@ namespace SaiyanBotTests
             Assert.Fail();
         }
         // Invalid array (empty array)
-        [TestMethod]
+        [Test]
         public void GetDiscordConfigTest_4()
         {
             try
@@ -139,7 +141,7 @@ namespace SaiyanBotTests
             Assert.Fail();
         }
         //Invalid array (null)
-        [TestMethod]
+        [Test]
         public void GetDiscordConfigTest_5()
         {
             try
@@ -155,7 +157,7 @@ namespace SaiyanBotTests
         }
 
         // Valid args
-        [TestMethod]
+        [Test]
         public void GetTwitchConfigTest_1()
         {
             TwitchConfig twitch = null;
@@ -182,7 +184,7 @@ namespace SaiyanBotTests
             Assert.IsTrue(assertion);
         }
         // Invalid index (wrong header)
-        [TestMethod]
+        [Test]
         public void GetTwitchConfigTest_2()
         {
             try
@@ -197,14 +199,14 @@ namespace SaiyanBotTests
             Assert.Fail();
         }
         // Invalid index (negative index)
-        [TestMethod]
+        [Test]
         public void GetTwitchConfigTest_3()
         {
             try
             {
                 TwitchConfig twitch = Config.GetTwitchConfig(configLines, -1);
             }
-            catch (ArgumentException)
+            catch (IndexOutOfRangeException)
             {
                 return;
             }
@@ -212,7 +214,7 @@ namespace SaiyanBotTests
             Assert.Fail();
         }
         // Invalid array (empty array)
-        [TestMethod]
+        [Test]
         public void GetTwitchConfigTest_4()
         {
             try
@@ -227,7 +229,7 @@ namespace SaiyanBotTests
             Assert.Fail();
         }
         // Invalid array (null)
-        [TestMethod]
+        [Test]
         public void GetTwitchConfigTest_5()
         {
             try
