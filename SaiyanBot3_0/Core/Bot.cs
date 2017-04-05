@@ -8,6 +8,11 @@ namespace SaiyanBot3_0.Core
 {
     public class Bot
     {
+        public Config Conf { get; private set; }
 
+        public Bot(Config conf)
+        {
+            Conf = conf;
+        }
     }
 }
