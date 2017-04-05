@@ -14,5 +14,10 @@ namespace SaiyanBot3_0.Core
         {
             Conf = conf;
         }
+
+        public void Start()
+        {
+            //TODO: Start bot
+        }
     }
 }

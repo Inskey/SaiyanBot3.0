@@ -37,6 +37,7 @@ namespace SaiyanBot3_0
 
         	Bot bot = new Bot(conf);
 
+        	bot.Start();
         }
     }
 }
